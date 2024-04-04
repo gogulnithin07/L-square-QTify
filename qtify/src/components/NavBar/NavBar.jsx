@@ -16,11 +16,15 @@ const NavBar = ({ data }) => {
         </Link> */}
         <Logo />
         {/* <SearchBar data={data} className="searchbar" /> */}
-        <Search1 data={data} className="searchbar" />
+        <Search1
+          data={data}
+          className="searchbar"
+          search={"Search a song of your choice"}
+        />
         <Modals title={"Give Feedback"} />
       </nav>
       {/* <SearchBar className="searchbar-moblie" /> */}
-      <Search1 data={data} className="searchbar-moblie" />
+      {/* <Search1 data={data} className="searchbar-moblie" /> */}
     </>
   );
 };
