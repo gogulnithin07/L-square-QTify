@@ -6,11 +6,9 @@ import GridSection from "./components/GridSection/GridSection";
 // api
 import { fetchNewAlbums, fetchTopAlbums, fetchSongs } from "./api/api";
 function App() {
-  // 1)
   const [dataTopAlbums, setDataTopAlbums] = useState([]);
-  // const [dataNewAlbum, setDataNewAlbum] = useState([]);
+  const [dataNewAlbum, setDataNewAlbum] = useState([]);
   // const [dataSong, setDataSong] = useState([]);
-  // 2)
   const getDataTopAlbums = async () => {
     try {
       const res = await fetchTopAlbums();
@@ -19,10 +17,18 @@ function App() {
       console.error(error);
     }
   };
+  const getDataNewAlbums = async () => {
+    try {
+      const res = await fetchNewAlbums();
+      setDataNewAlbum(res);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   // 3)
   useEffect(() => {
     getDataTopAlbums();
-    // getDataNewAlbums();
+    getDataNewAlbums();
     // getDataSongs()
   }, []);
 
@@ -31,6 +37,7 @@ function App() {
       <NavBar />
       <Header />
       <GridSection title={"Top Albums"} data={dataTopAlbums} type={"album"} />
+      <GridSection title={"New Albums "} data={dataNewAlbum} type={"album"} />
     </div>
   );
 }
