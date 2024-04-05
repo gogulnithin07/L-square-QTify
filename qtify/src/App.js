@@ -3,12 +3,13 @@ import { useState, useEffect } from "react";
 import NavBar from "./components/NavBar/NavBar";
 import Header from "./components/Header/Header";
 import GridSection from "./components/GridSection/GridSection";
+import Line from "./components/Line/Line";
 // api
 import { fetchNewAlbums, fetchTopAlbums, fetchSongs } from "./api/api";
 function App() {
   const [dataTopAlbums, setDataTopAlbums] = useState([]);
   const [dataNewAlbum, setDataNewAlbum] = useState([]);
-  // const [dataSong, setDataSong] = useState([]);
+  const [dataSong, setDataSong] = useState([]);
   const getDataTopAlbums = async () => {
     try {
       const res = await fetchTopAlbums();
@@ -25,11 +26,19 @@ function App() {
       console.error(error);
     }
   };
-  // 3)
+
+  const getDataSongs = async () => {
+    try {
+      const res = await fetchSongs();
+      setDataSong(res);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   useEffect(() => {
     getDataTopAlbums();
     getDataNewAlbums();
-    // getDataSongs()
+    getDataSongs();
   }, []);
 
   return (
@@ -38,6 +47,13 @@ function App() {
       <Header />
       <GridSection title={"Top Albums"} data={dataTopAlbums} type={"album"} />
       <GridSection title={"New Albums "} data={dataNewAlbum} type={"album"} />
+      <Line />
+      <GridSection
+        title={"Songs "}
+        data={dataSong}
+        type={"song"}
+        setDataSong={setDataSong}
+      />
     </div>
   );
 }
